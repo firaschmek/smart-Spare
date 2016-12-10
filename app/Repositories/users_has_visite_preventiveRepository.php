@@ -22,13 +22,11 @@ class users_has_visite_preventiveRepository extends BaseRepository
     {
         return users_has_visite_preventive::class;
     }
-
-    public function Allusers()
+     public function Allusers()
     {
         return \App\Models\Users::pluck('name','id');
     }
-
-    public function Allvisites()
+     public function Allvisite_preventive()
     {
         return \App\Models\visite_preventive::pluck('date_visite','id');
     }

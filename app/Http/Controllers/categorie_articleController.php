@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\categorie_articleDataTable;
+use App\DataTables\articleDataTable;
+use App\DataTables\ListearticleDataTable;
 use App\Http\Requests;
 use App\Http\Requests\Createcategorie_articleRequest;
 use App\Http\Requests\Updatecategorie_articleRequest;
@@ -10,7 +12,7 @@ use App\Repositories\categorie_articleRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
-
+use DB;
 class categorie_articleController extends AppBaseController
 {
     /** @var  categorie_articleRepository */
@@ -147,5 +149,22 @@ class categorie_articleController extends AppBaseController
         Flash::success('Categorie Article deleted successfully.');
 
         return redirect(route('categorieArticles.index'));
+    }
+    /**
+     * Display a listing of the categorie_article.
+     *
+     * @param categorie_articleDataTable $categorieArticleDataTable
+     * @return Response
+     */
+    public function allarticle($id,ListearticleDataTable $articleDataTable)
+    {
+
+  //$article=DB::table('article')->where('categorie_article_id',$id)->pluck('designation');
+        //return view('categorie_articles.untitled')->with('article',$article);
+
+  $articleDataTable->id_categorie=$id;
+$articleDataTable->ajax();
+
+  return $articleDataTable->render('articles.index');
     }
 }

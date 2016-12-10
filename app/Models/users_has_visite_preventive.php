@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class users_has_visite_preventive
  * @package App\Models
- * @version November 30, 2016, 9:11 am UTC
+ * @version December 5, 2016, 10:00 pm UTC
  */
 class users_has_visite_preventive extends Model
 {

@@ -10,6 +10,7 @@ use App\Repositories\visite_preventiveRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use DB;
 
 class visite_preventiveController extends AppBaseController
 {
@@ -38,8 +39,8 @@ class visite_preventiveController extends AppBaseController
      * @return Response
      */
     public function create()
-    {
-        return view('visite_preventives.create');
+    {   $site=$this->visitePreventiveRepository->Allsite();
+        return view('visite_preventives.create')->with('site',$site);
     }
 
     /**
@@ -90,14 +91,14 @@ class visite_preventiveController extends AppBaseController
     public function edit($id)
     {
         $visitePreventive = $this->visitePreventiveRepository->findWithoutFail($id);
-
+$site=$this->visitePreventiveRepository->Allsite();
         if (empty($visitePreventive)) {
             Flash::error('Visite Preventive not found');
 
             return redirect(route('visitePreventives.index'));
         }
 
-        return view('visite_preventives.edit')->with('visitePreventive', $visitePreventive);
+        return view('visite_preventives.edit')->with('visitePreventive', $visitePreventive)->with('site',$site);
     }
 
     /**

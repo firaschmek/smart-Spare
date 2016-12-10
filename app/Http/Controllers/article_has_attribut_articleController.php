@@ -10,6 +10,7 @@ use App\Repositories\article_has_attribut_articleRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use DB;
 
 class article_has_attribut_articleController extends AppBaseController
 {
@@ -70,6 +71,8 @@ class article_has_attribut_articleController extends AppBaseController
     public function show($id)
     {
         $articleHasAttributArticle = $this->articleHasAttributArticleRepository->findWithoutFail($id);
+        $article=DB::table('article')->where('id',$articleHasAttributArticle->article_id)->first();
+  $attribut = DB::table('attribut_article')->where('id', $articleHasAttributArticle->attribut_article_id)->first();
 
         if (empty($articleHasAttributArticle)) {
             Flash::error('Article Has Attribut Article not found');
@@ -77,7 +80,7 @@ class article_has_attribut_articleController extends AppBaseController
             return redirect(route('articleHasAttributArticles.index'));
         }
 
-        return view('article_has_attribut_articles.show')->with('articleHasAttributArticle', $articleHasAttributArticle)->with('article',$this->articleHasAttributArticleRepository->allArticle())->with('attribut',$this->articleHasAttributArticleRepository->allAttribut());
+        return view('article_has_attribut_articles.show')->with('articleHasAttributArticle', $articleHasAttributArticle)->with('article', $article)->with('attribut', $attribut);
     }
 
     /**

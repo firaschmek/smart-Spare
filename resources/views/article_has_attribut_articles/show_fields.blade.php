@@ -7,13 +7,13 @@
 <!-- Article Id Field -->
 <div class="form-group">
     {!! Form::label('article_id', 'Article Id:') !!}
-    <p>{!! $articleHasAttributArticle->article_id !!}</p>
+    <p>{!! $article->designation !!}</p>
 </div>
 
 <!-- Attribut Article Id Field -->
 <div class="form-group">
     {!! Form::label('attribut_article_id', 'Attribut Article Id:') !!}
-    <p>{!! $articleHasAttributArticle->attribut_article_id !!}</p>
+    <p>{!! $attribut->designation !!}</p>
 </div>
 
 <!-- Valeur Field -->

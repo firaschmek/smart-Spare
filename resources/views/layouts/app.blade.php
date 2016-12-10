@@ -13,9 +13,20 @@
 
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.2/chosen.min.css">
-   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css" />
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+  } );
+  </script>
     @yield('css')
 </head>
 
@@ -158,26 +169,22 @@
 </div>
 
     <!-- jQuery 2.1.4 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+ <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+ 
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
 
+
     <!-- AdminLTE App -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.3/js/app.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.2/chosen.jquery.min.js"></script>
-<script type="text/javascript">
-   //  $('#ProjectModal').on('hidden.bs.modal', function(){
-      //   alert('eeeeeee');
-      // var a =  $('#ProjectModal .row').val();
-       //alert(a);
-            //   $('#ProjectModal .modal-content').empty('');
-        //       $('#P').empty('');
-        //       var cont='<div class="modal fade" id="ProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> <div class="modal-dialog">      <div class="modal-content">       <div class="modal-header">       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>   <h4 class="modal-title">Modal title</h4>      </div>   <div class="modal-body"><div class="te"></div></div>   </div>    <!-- /.modal-content -->  </div> <!-- /.modal-dialog --></div></div>';
-        //    $('#P').append(cont);
-        //    });
-    </script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/i18n/fr.js"></script>   
 
+ 
     <script type="text/javascript">
         function fun_modal(url){
            
@@ -186,20 +193,23 @@
 
            
         }
-   $(document).ready(function() {
-    $('.datepicker').datepicker();
-  });
-   /* $(document).ready(function(){
-        var url = "projets/4/edit";
-        jQuery('#modellink').click(function(e) {
-            $('.modal-container').load(url,function(result){
-                $('#myModal').modal({show:true});
+          $('#myModal').on('shown.bs.modal', function (e) {
+           
+            $(".js-example-basic-single").select2();
+           
+             
             });
-        });
-    });*/
-</script>
-
+  
  
-@yield('scripts')
+    
+</script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script type="text/javascript">
+  $(function() {
+          $( "#datepicker" ).datepicker( "option", "dateFormat", 'd MM, y');
+  });
+  </script>
+ 
+ @yield('scripts')
 </body>
 </html>

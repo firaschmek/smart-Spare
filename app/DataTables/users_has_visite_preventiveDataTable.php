@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\users_has_visite_preventive;
+use App\Models\users;
 use Form;
 use Yajra\Datatables\Services\DataTable;
 
@@ -27,15 +28,16 @@ class users_has_visite_preventiveDataTable extends DataTable
      */
     public function query()
     {
-        //$usersHasVisitePreventives = users_has_visite_preventive::query();
+      //  $usersHasVisitePreventives = users_has_visite_preventive::query();
         $usersHasVisitePreventives = users_has_visite_preventive::query()->select([
-            'users_has_visite_preventives.id as id',
+            'users_has_visite_preventive.id', 'users.name as name','visite_preventive.date_visite as visite'
+
+         //  'users_has_visite_preventive.id as vis' 
+          //  'users.id as name_i'
            
-            'users.name as name_users',
-            'visite_preventive.date_visite as visite_preventive_date'
             ])
             ->leftJoin('users','users_has_visite_preventive.users_id', '=', 'users.id')
-            ->leftJoin('visite_preventive','users_has_visite_preventive.visite_preventive_id','=','visite_preventive.id');
+            ->leftJoin('visite_preventive','users_has_visite_preventive.visite_preventive_id', '=', 'visite_preventive.id');
 
         return $this->applyScopes($usersHasVisitePreventives);
     }
@@ -80,9 +82,11 @@ class users_has_visite_preventiveDataTable extends DataTable
     private function getColumns()
     {
         return [
-        
-            'users' => ['name' => 'name_users', 'data' => 'name_users'],
-            'visite_preventive_date' => ['name' => 'visite_preventive_date', 'data' => 'visite_preventive_date']
+    'id' => ['name' => 'users_has_visite_preventive.id', 'data' => 'id'],
+    'name' => ['name' => 'users.name', 'data' => 'name'],
+    'visite' => ['name' => 'visite', 'data' => 'visite']
+    
+      //  'visite_preventive_id' => ['name' => 'visite_preventive_id', 'data' => 'visite_preventive_id']
         ];
     }
 

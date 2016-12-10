@@ -10,6 +10,7 @@ use App\Repositories\article_has_entropotRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use DB;
 
 class article_has_entropotController extends AppBaseController
 {
@@ -70,6 +71,8 @@ class article_has_entropotController extends AppBaseController
     public function show($id)
     {
         $articleHasEntropot = $this->articleHasEntropotRepository->findWithoutFail($id);
+         $article=DB::table('article')->where('id',$articleHasEntropot->article_id)->first();
+  $entropot = DB::table('entropot')->where('id', $articleHasEntropot->entropot_id)->first();
 
         if (empty($articleHasEntropot)) {
             Flash::error('Article Has Entropot not found');
@@ -77,7 +80,7 @@ class article_has_entropotController extends AppBaseController
             return redirect(route('articleHasEntropots.index'));
         }
 
-        return view('article_has_entropots.show')->with('articleHasEntropot', $articleHasEntropot)->with('article',$this->articleHasEntropotRepository->allArticle())->with('entropot',$this->articleHasEntropotRepository->allentropot());
+        return view('article_has_entropots.show')->with('articleHasEntropot', $articleHasEntropot)->with('article',$article)->with('entropot',$entropot);
     }
 
     /**

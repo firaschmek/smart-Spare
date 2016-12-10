@@ -7,13 +7,13 @@
 <!-- Article Id Field -->
 <div class="form-group">
     {!! Form::label('article_id', 'Article :') !!}
-    <p>{!! $articleHasEntropot->article_des !!}</p>
+    <p>{!! $article->designation !!}</p>
 </div>
 
 <!-- Entropot Id Field -->
 <div class="form-group">
     {!! Form::label('entropot_id', 'Entropot :') !!}
-    <p>{!! $articleHasEntropot->entrop_adress !!}</p>
+    <p>{!! $entropot->adresse !!}</p>
 </div>
 
 <!-- Quantite Field -->

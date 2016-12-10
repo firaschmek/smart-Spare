@@ -5,7 +5,7 @@ namespace App\DataTables;
 use App\Models\article;
 use Form;
 use Yajra\Datatables\Services\DataTable;
-
+use Flash;
 class articleDataTable extends DataTable
 {
 
@@ -19,6 +19,16 @@ class articleDataTable extends DataTable
             ->addColumn('action', 'articles.datatables_actions')
             ->make(true);
     }
+     /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function ajaxb($id)
+    {
+        return $this->datatables
+            ->eloquent($this->query())
+            //->addColumn('action', 'articles.datatables_actions')
+            ->make(true);
+    }
 
     /**
      * Get the query object to be processed by datatables.
@@ -26,17 +36,18 @@ class articleDataTable extends DataTable
      * @return \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder
      */
     public function query()
-    {
-        $articles = article::query()>select([
-            'artciles.id as id',
-           'artciles.designation as designation',
-           'artciles.code_article as code_article',
-            'categorie_article.designation as categorie_article_designation',
+    { 
+        $articles = article::query()->select([
+            'article.id as id_article',
+          'article.designation as designation',
+           'article.code_article as code_article',
+            'categorie_article.designation as categorie_article_designation'
            
             ])
-            ->leftJoin('categorie_article','artciles.categorie_id', '=', 'categorie_article.id');
+          ->leftJoin('categorie_article','article.categorie_article_id', '=', 'categorie_article.id');
         return $this->applyScopes($articles);
     }
+
 
     /**
      * Optional method if you want to use html builder.
@@ -78,9 +89,10 @@ class articleDataTable extends DataTable
     private function getColumns()
     {
         return [
-            'designation' => ['name' => 'designation', 'data' => 'designation'],
+        'id_article' => ['name' => 'id_article', 'data' => 'id_article'],
+          'designation' => ['name' => 'designation', 'data' => 'designation'],
             'code_article' => ['name' => 'code_article', 'data' => 'code_article'],
-            'categorie_article_id' => ['name' => 'categorie_article_id', 'data' => 'categorie_article_designation']
+            'categorie_article' => ['name' => 'categorie_article_designation', 'data' => 'categorie_article_designation']
         ];
     }
 
@@ -93,4 +105,22 @@ class articleDataTable extends DataTable
     {
         return 'articles';
     }
+
+public function aquery($id)
+    { 
+
+        $articles = article::query()->select([
+            'article.id as id_article',
+          'article.designation as designation',
+           'article.code_article as code_article',
+            'categorie_article.designation as categorie_article_designation'
+           
+            ])
+          ->leftJoin('categorie_article','article.categorie_article_id', '=', 'categorie_article.id')
+->where('categorie_article.id',$id)
+          ;
+          Flash::error('Categorie ');
+        return $this->applyScopes($articles);
+    }
+
 }

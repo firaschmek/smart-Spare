@@ -27,7 +27,15 @@ class article_has_attribut_articleDataTable extends DataTable
      */
     public function query()
     {
-        $articleHasAttributArticles = article_has_attribut_article::query();
+        $articleHasAttributArticles = article_has_attribut_article::query()->select([
+            'article_has_attribut_article.id','article_has_attribut_article.valeur as valeur' ,'article.designation as designarticle','attribut_article.designation as designattribut'
+
+         //  'users_has_visite_preventive.id as vis' 
+          //  'users.id as name_i'
+           
+            ])
+            ->leftJoin('article','article_has_attribut_article.article_id', '=', 'article.id')
+            ->leftJoin('attribut_article','article_has_attribut_article.attribut_article_id', '=', 'attribut_article.id');;
 
         return $this->applyScopes($articleHasAttributArticles);
     }
@@ -72,8 +80,8 @@ class article_has_attribut_articleDataTable extends DataTable
     private function getColumns()
     {
         return [
-            'article_id' => ['name' => 'article_id', 'data' => 'article_id'],
-            'attribut_article_id' => ['name' => 'attribut_article_id', 'data' => 'attribut_article_id'],
+            'article_id' => ['name' => 'article_id', 'data' => 'designarticle'],
+            'attribut_article_id' => ['name' => 'attribut_article_id', 'data' => 'designattribut'],
             'valeur' => ['name' => 'valeur', 'data' => 'valeur']
         ];
     }

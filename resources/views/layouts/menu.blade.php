@@ -45,9 +45,10 @@
     <a href="{!! route('visitePreventives.index') !!}"><i class="fa fa-edit"></i><span>visite_preventives</span></a>
 </li>
 
+
+
+
 <li class="{{ Request::is('usersHasVisitePreventives*') ? 'active' : '' }}">
     <a href="{!! route('usersHasVisitePreventives.index') !!}"><i class="fa fa-edit"></i><span>users_has_visite_preventives</span></a>
 </li>
-
-
 

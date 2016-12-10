@@ -17,6 +17,7 @@ class categorie_articleDataTable extends DataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', 'categorie_articles.datatables_actions')
+             
             ->make(true);
     }
 
@@ -26,6 +27,12 @@ class categorie_articleDataTable extends DataTable
      * @return \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder
      */
     public function query()
+    {
+        $categorieArticles = categorie_article::query();
+
+        return $this->applyScopes($categorieArticles);
+    }
+    public function aquery($id)
     {
         $categorieArticles = categorie_article::query();
 
@@ -72,7 +79,8 @@ class categorie_articleDataTable extends DataTable
     private function getColumns()
     {
         return [
-            'designation' => ['name' => 'designation', 'data' => 'designation']
+            'designation' => ['name' => 'designation', 'data' => 'designation'],
+           
         ];
     }
 

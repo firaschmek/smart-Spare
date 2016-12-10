@@ -27,7 +27,14 @@ class visite_preventiveDataTable extends DataTable
      */
     public function query()
     {
-        $visitePreventives = visite_preventive::query();
+        $visitePreventives = visite_preventive::query()->select([
+            'visite_preventive.id as id',
+           'site.designation as designation_site',
+          'visite_preventive.date_visite as dat_vis_prev'
+            ]
+
+            )
+        ->leftJoin('site','visite_preventive.site_id','=','site.id');
 
         return $this->applyScopes($visitePreventives);
     }
@@ -72,8 +79,10 @@ class visite_preventiveDataTable extends DataTable
     private function getColumns()
     {
         return [
-            'site_id' => ['name' => 'site_id', 'data' => 'site_id'],
-            'date_visite' => ['name' => 'date_visite', 'data' => 'date_visite']
+
+       'visite_preventive_id' => ['name' => 'visite_preventive.id', 'data' => 'id'],
+           'site' => ['name' => 'site_id', 'data' => 'designation_site'],
+           'date_visite' => ['name' => 'date_visite', 'data' => 'dat_vis_prev']
         ];
     }
 

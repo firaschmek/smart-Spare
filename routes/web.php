@@ -27,6 +27,9 @@ Route::get('/home', 'HomeController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/allarticles/{id}', 
+  [ 'as' => 'allarticle',
+	'uses'=>'categorie_articleController@allarticle']);
 
 Route::resource('employees', 'employeesController');
 
@@ -77,3 +80,5 @@ Route::resource('visitePreventives', 'visite_preventiveController');
 Route::resource('usersHasVisitePreventives', 'users_has_visite_preventiveController');
 
 Route::resource('articles', 'articleController');
+
+Route::resource('usersHasVisitePreventives', 'users_has_visite_preventiveController');

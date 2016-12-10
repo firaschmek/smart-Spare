@@ -70,6 +70,8 @@ class articleController extends AppBaseController
     public function show($id)
     {
         $article = $this->articleRepository->findWithoutFail($id);
+       //  $id_categorie=DB::table('article')->where('id',$id)->pluck('categorie_article_id');
+       //  $categorie = DB::table('categorie_article')->where('id', $id_categorie)->first();
 
         if (empty($article)) {
             Flash::error('Article not found');
@@ -77,7 +79,7 @@ class articleController extends AppBaseController
             return redirect(route('articles.index'));
         }
 
-        return view('articles.show')->with('article', $article);
+        return view('articles.show')->with('article', $article)->with('categorie','categorie');
     }
 
     /**

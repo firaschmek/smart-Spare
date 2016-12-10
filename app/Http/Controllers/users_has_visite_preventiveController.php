@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\DataTables\users_has_visite_preventiveDataTable;
 use App\Http\Requests;
+use App\Models\users_has_visite_preventive;
 use App\Http\Requests\Createusers_has_visite_preventiveRequest;
 use App\Http\Requests\Updateusers_has_visite_preventiveRequest;
 use App\Repositories\users_has_visite_preventiveRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
-
+use DB;
 class users_has_visite_preventiveController extends AppBaseController
 {
     /** @var  users_has_visite_preventiveRepository */
@@ -38,8 +39,12 @@ class users_has_visite_preventiveController extends AppBaseController
      * @return Response
      */
     public function create()
+
     {
-        return view('users_has_visite_preventives.create')->with('users',$this->usersHasVisitePreventiveRepository->Allusers())->with('visite',$this->usersHasVisitePreventiveRepository->Allvisites());
+$users=$this->usersHasVisitePreventiveRepository->Allusers();
+        $visite_preventive=$this->usersHasVisitePreventiveRepository->Allvisite_preventive();
+
+        return view('users_has_visite_preventives.create')->with('users',$users)->with('visite_preventive', $visite_preventive);
     }
 
     /**
@@ -69,7 +74,10 @@ class users_has_visite_preventiveController extends AppBaseController
      */
     public function show($id)
     {
-        $usersHasVisitePreventive = $this->usersHasVisitePreventiveRepository->findWithoutFail($id);
+      $usersHasVisitePreventive = $this->usersHasVisitePreventiveRepository->findWithoutFail($id);
+        $users=DB::table('users')->where('id', $usersHasVisitePreventive->users_id)->pluck('name')->first();;
+         $visite_preventive=DB::table('visite_preventive')->where('id', $usersHasVisitePreventive->visite_preventive_id)->pluck('date_visite')->first();;
+  //$categories = DB::table('categorie_article')->where('id', $id_categorie)->first();
 
         if (empty($usersHasVisitePreventive)) {
             Flash::error('Users Has Visite Preventive not found');
@@ -77,7 +85,8 @@ class users_has_visite_preventiveController extends AppBaseController
             return redirect(route('usersHasVisitePreventives.index'));
         }
 
-        return view('users_has_visite_preventives.show')->with('usersHasVisitePreventive', $usersHasVisitePreventive);
+        return view('users_has_visite_preventives.show')->with('usersHasVisitePreventive', $usersHasVisitePreventive)->with('username',$users)->with('visite_preventive', $visite_preventive)
+        ;
     }
 
     /**
@@ -90,14 +99,15 @@ class users_has_visite_preventiveController extends AppBaseController
     public function edit($id)
     {
         $usersHasVisitePreventive = $this->usersHasVisitePreventiveRepository->findWithoutFail($id);
-
+$users=$this->usersHasVisitePreventiveRepository->Allusers();
+        $visite_preventive=$this->usersHasVisitePreventiveRepository->Allvisite_preventive();
         if (empty($usersHasVisitePreventive)) {
             Flash::error('Users Has Visite Preventive not found');
 
             return redirect(route('usersHasVisitePreventives.index'));
         }
 
-        return view('users_has_visite_preventives.edit')->with('usersHasVisitePreventive', $usersHasVisitePreventive)->with('users',$this->usersHasVisitePreventiveRepository->Allusers())->with('visite',$this->usersHasVisitePreventiveRepository->Allvisites());
+        return view('users_has_visite_preventives.edit')->with('usersHasVisitePreventive', $usersHasVisitePreventive)->with('users',$users)->with('visite_preventive',$visite_preventive);
     }
 
     /**
@@ -111,6 +121,7 @@ class users_has_visite_preventiveController extends AppBaseController
     public function update($id, Updateusers_has_visite_preventiveRequest $request)
     {
         $usersHasVisitePreventive = $this->usersHasVisitePreventiveRepository->findWithoutFail($id);
+       
 
         if (empty($usersHasVisitePreventive)) {
             Flash::error('Users Has Visite Preventive not found');

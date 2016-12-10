@@ -22,4 +22,8 @@ class visite_preventiveRepository extends BaseRepository
     {
         return visite_preventive::class;
     }
+    public function Allsite()
+    {
+        return \App\Models\site::pluck('designation','id');
+    }
 }
